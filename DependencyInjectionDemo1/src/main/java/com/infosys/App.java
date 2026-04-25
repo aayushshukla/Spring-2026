@@ -1,8 +1,6 @@
 package com.infosys;
 
-
 import com.infosys.beans.Student;
-import com.infosys.beans.User;
 import com.infosys.config.MyConfig;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -16,11 +14,9 @@ public class App
     {
 
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(MyConfig.class);
-//        Student student= context.getBean(Student.class);
-//        student.setStudentName("Abishek");
-//        student.setStudentId(102);
-//        System.out.println(student.toString());
-        User user = context.getBean(User.class);
-        user.processPayment();
+        Student student = context.getBean(Student.class);
+        student.setStudentName("Chintu");
+        student.setRollNo(11);
+        student.studentDetails();
     }
 }
