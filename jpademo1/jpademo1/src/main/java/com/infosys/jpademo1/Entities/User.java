@@ -7,6 +7,22 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+
+// Named query   is a JPQL  defined with unique name and stored at entry level
+// it help in reuse of query
+//  @NamedQuery(
+//   name = "", query= ""
+//  )
+// we define named query in entity class
+@NamedQuery(
+        name="User.findByUserNameByNamedQuery",
+        query = "select u from User u where u.userName = :name "
+)
+
+@NamedQuery(
+        name="User.findEmailByUserNameAndId",
+        query = "select u.userMail from User u where u.userName = :uname and u.userId = :uid"
+)
 @Getter @Setter
 @NoArgsConstructor
 @ToString
@@ -14,6 +30,7 @@ import lombok.ToString;
 @Entity  // Declares that the annotated class is an entity.
 // by default it will ccreate tablename same as classname
 @Table(name = "user_info")
+// owning side
 public class User {
 
     @Id  // specifies the primary key for entity
@@ -26,6 +43,8 @@ public class User {
     @Column(name = "useremail")
     // nullable - not null  unique - unique  length
     private String userMail;
+
+
 
 
 }

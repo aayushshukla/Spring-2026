@@ -84,9 +84,132 @@ public class UserService {
             userRepo.save(user);
             System.out.println("User email id updated");
             showAllUser();
+
         }
         else{
             System.err.println("No user found for give user id "+id);
         }
     }
+
+    public  void findUsersOnBasisOfName(String uname)
+    {
+       List<User>  userList =  userRepo.findByUserName(uname);
+       if(!userList.isEmpty()) {
+           for (User user : userList) {
+               System.out.println(user.getUserName() + "\t" + user.getUserMail());
+           }
+       }
+       else
+       {
+           System.err.println("No user info is found for given name"+uname);
+       }
+    }
+
+    public  void findOnBasisOfUserNameAndEmail(String uname, String email)
+    {
+       User user =  userRepo.findByUserNameAndUserMail(uname,email);
+       if(user!=null)
+       {
+           System.out.println(user.getUserName() + "\t" + user.getUserId());
+       }
+       else
+       {
+           System.out.println("No user found ");
+       }
+
+    }
+
+    public  void findOnBasisOfLikePattern(String pattern)
+    {
+         List<User> userList = userRepo.findByUserNameLike(pattern);
+         if(!userList.isEmpty())
+         {
+              for(User user:userList){
+                  System.out.println(user.getUserId() + "\t" + user.getUserMail());
+              }
+         }
+         else
+         {
+             System.out.println("No user found");
+         }
+    }
+
+    public  void getAllUserData()
+    {
+        List<User>  userList = userRepo.getAllUser();
+        String data = "";
+        for( User user : userList)
+        {
+
+            data = data + user.getUserId() + "\t" +user.getUserName() + "\t" + user.getUserMail() + "\n";
+        }
+        System.out.println(data);
+    }
+
+    public  void getAllEmail()
+    {
+        List<String> emailList = userRepo.getAllUserEmail();
+        System.out.println(emailList);
+    }
+
+    public void getUserOnBasisOfName(String name)
+    {
+        List<User>  userList =  userRepo.getUserByName(name);
+        if(!userList.isEmpty()) {
+            for (User user : userList) {
+                System.out.println(user.getUserName() + "\t" + user.getUserMail());
+            }
+        }
+        else
+        {
+            System.err.println("No user info is found for given name"+name);
+        }
+
+    }
+
+    public  void getUserOnBasisOfEmailAndId(String email , int id)
+    {
+        User user = userRepo.getUserByEmailAndId(email,id);
+        if(user!=null)
+        {
+            System.out.println(user.toString());
+        }
+        else
+        {
+            System.out.println("user not found");
+        }
+    }
+
+    public  void getUserByNameUsingNameQuery(String name)
+    {
+        List<User> userList = userRepo.findByUserNameByNamedQuery(name);
+        if(!userList.isEmpty())
+        {
+            for(User user : userList)
+            {
+                System.out.println("User Details :"+user.getUserMail() + "\t"+ user.getUserName());
+            }
+        }
+        else
+        {
+            System.out.println("User not found for given name "+name);
+        }
+    }
+
+    public void getUserEmailOnBasisOfNameAndId(String uname , int id)
+    {
+        String email = userRepo.findEmailByUserNameAndId(uname,id);
+        if(email!=null)
+        {
+            System.out.println("Username"+uname+ "\t"+"email"+email);
+        }
+        else
+        {
+            System.out.println("Incorrect user details please check again");
+        }
+    }
+   // write name query to find the email id of given user on basis of name and id
+
+    // delete on basis of id
+    // delete on basis of object 
 }
